@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>F1 Dashboard</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://f1-api.kirozdormu.workers.dev; img-src 'self' data: https:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="no-referrer">
   <meta name="robots" content="noindex, nofollow">
   <style>
     :root {
@@ -159,7 +161,7 @@
   <a href="/f1" class="brand">mini-on-ai <span>F1</span></a>
   <div class="nav-actions">
     <span class="commit-hash" id="commit-hash"></span>
-    <a href="#" class="btn-secondary" id="billing-portal-btn" onclick="openPortal(); return false;">Billing →</a>
+    <a href="#" class="btn-secondary" id="billing-portal-btn">Billing →</a>
   </div>
 </nav>
 
@@ -180,7 +182,7 @@
     <p>Your key is encrypted at rest (AES-GCM, per-account HKDF key). It's used only to forward your requests to Anthropic. <a href="/f1/security" style="color:var(--brand);">Verify in the source code →</a></p>
     <input type="password" id="anthropic-key-input" placeholder="sk-ant-..." autocomplete="off">
     <div id="byok-error" class="error-msg" style="display:none;margin-bottom:12px;"></div>
-    <button class="btn-primary" onclick="uploadAnthropicKey()">Encrypt &amp; save key</button>
+    <button class="btn-primary" data-action="uploadAnthropicKey">Encrypt &amp; save key</button>
   </div>
 
   <!-- Stats overview -->
@@ -201,11 +203,11 @@
 
   <!-- Tabs: insights / keys / usage / audit log -->
   <div class="tabs">
-    <div class="tab active" onclick="switchTab('insights')">Insights</div>
-    <div class="tab" onclick="switchTab('keys')">API Keys</div>
-    <div class="tab" onclick="switchTab('usage')">Recent calls</div>
-    <div class="tab" onclick="switchTab('audit')">Key access log</div>
-    <div class="tab" onclick="switchTab('settings')">Settings</div>
+    <div class="tab active" data-tab="insights">Insights</div>
+    <div class="tab" data-tab="keys">API Keys</div>
+    <div class="tab" data-tab="usage">Recent calls</div>
+    <div class="tab" data-tab="audit">Key access log</div>
+    <div class="tab" data-tab="settings">Settings</div>
   </div>
 
   <!-- Insights tab -->
@@ -250,7 +252,7 @@
       <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Set the date you migrated from <code>claude -p</code> to F1. The "since cutover" insight compares your actual spend against the Max 5x $100/mo Agent SDK credit cap.</p>
       <div style="display:flex;gap:12px;align-items:center;margin-bottom:24px;">
         <input type="date" id="cutover-date-input" style="padding:8px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
-        <button class="btn-primary" onclick="saveCutoverDate()">Save</button>
+        <button class="btn-primary" data-action="saveCutoverDate">Save</button>
       </div>
 
       <div style="margin-bottom:32px;border-top:1px solid var(--border);padding-top:24px;">
@@ -278,9 +280,9 @@
         </div>
 
         <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;">
-          <button class="btn-primary" onclick="saveAlerts()">Save alert settings</button>
-          <button class="btn-secondary" onclick="testAlert()">Send test alert</button>
-          <button class="btn-secondary" onclick="clearAlerts()" title="Turn off alerts">Turn off</button>
+          <button class="btn-primary" data-action="saveAlerts">Save alert settings</button>
+          <button class="btn-secondary" data-action="testAlert">Send test alert</button>
+          <button class="btn-secondary" data-action="clearAlerts" title="Turn off alerts">Turn off</button>
         </div>
         <p id="alert-status" style="font-size:13px;color:var(--text-muted);margin:0;"></p>
       </div>
@@ -288,14 +290,14 @@
       <h3 style="font-size:15px;font-weight:600;margin-bottom:16px;">Prompt prefix storage (opt-in)</h3>
       <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">When enabled, F1 stores the first 200 characters of each input. This unlocks the "Top expensive prompts" preview in insights. Full bodies are never stored.</p>
       <label style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;">
-        <input type="checkbox" id="prompt-optin-checkbox" onchange="savePromptOptin(this.checked)">
+        <input type="checkbox" id="prompt-optin-checkbox">
         Enable prompt prefix storage (200 chars max)
       </label>
 
       <div style="margin-top:40px;border-top:1px solid var(--border);padding-top:24px;">
         <h3 style="font-size:15px;font-weight:600;color:var(--red);margin-bottom:8px;">Danger zone</h3>
         <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">Permanently delete your account and all associated data (keys, usage events, audit log). This cannot be undone.</p>
-        <button class="btn-secondary" style="border-color:var(--red);color:var(--red);" onclick="deleteAccount()">Delete account</button>
+        <button class="btn-secondary" style="border-color:var(--red);color:var(--red);" data-action="deleteAccount">Delete account</button>
       </div>
     </div>
   </div>

@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://f1-api.kirozdormu.workers.dev; img-src 'self' data: https:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>F1 — AI Cost Tracking Proxy for Anthropic API | mini-on-ai</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -362,7 +364,7 @@
   <p class="sub">F1 is a BYOK proxy for the Anthropic API. One SDK line change — get real USD spend per key, per model, per call. Plus 5 optimization insights that find your savings automatically.</p>
 
   <div class="f1-cta-row">
-    <button class="btn-f1-primary" onclick="startCheckout('pro')">Get Pro — $19/mo</button>
+    <button class="btn-f1-primary" data-checkout="pro">Get Pro — $19/mo</button>
     <a href="#pricing" class="btn-f1-secondary">See all plans</a>
   </div>
 
@@ -532,7 +534,7 @@
         <li>Token-in-URL dashboard</li>
         <li>Stripe Customer Portal</li>
       </ul>
-      <button class="btn-f1-primary" style="width:100%;" onclick="startCheckout('pro')">Get Pro</button>
+      <button class="btn-f1-primary" style="width:100%;" data-checkout="pro">Get Pro</button>
     </div>
     <div class="price-card">
       <div class="tier">Scale</div>
@@ -545,7 +547,7 @@
         <li>DPA template available</li>
         <li>Priority email support</li>
       </ul>
-      <button class="btn-f1-secondary" style="width:100%;" onclick="startCheckout('scale')">Get Scale</button>
+      <button class="btn-f1-secondary" style="width:100%;" data-checkout="scale">Get Scale</button>
     </div>
   </div>
   <p style="text-align:center;font-size:13px;color:var(--text-muted);">Questions? <a href="mailto:hello@mini-on-ai.com" style="color:var(--brand);">hello@mini-on-ai.com</a></p>
@@ -605,94 +607,16 @@
 <!-- Stripe checkout modal -->
 <div id="checkout-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:none;align-items:center;justify-content:center;">
   <div style="background:#0f1117;border:1px solid var(--border);border-radius:16px;padding:36px;max-width:400px;width:90%;position:relative;">
-    <button onclick="closeModal()" style="position:absolute;top:12px;right:16px;background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;">×</button>
+    <button id="checkout-close" style="position:absolute;top:12px;right:16px;background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;">×</button>
     <h2 style="margin-bottom:8px;" id="modal-tier-label">Get Pro</h2>
     <p style="color:var(--text-muted);font-size:14px;margin-bottom:24px;">Enter your email — your API key + dashboard URL will be sent to it.</p>
     <input type="email" id="checkout-email" placeholder="you@example.com"
       style="width:100%;padding:12px 14px;background:#1a1a2e;border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-size:14px;box-sizing:border-box;margin-bottom:16px;">
     <div id="checkout-error" style="color:#f87171;font-size:13px;margin-bottom:12px;display:none;"></div>
-    <button id="checkout-submit" class="btn-f1-primary" style="width:100%;" onclick="submitCheckout()">Continue to payment →</button>
+    <button id="checkout-submit" class="btn-f1-primary" style="width:100%;">Continue to payment →</button>
   </div>
 </div>
 
-<script>
-const F1_API = 'https://f1-api.kirozdormu.workers.dev';
-let selectedTier = 'pro';
-
-// ── Fetch live stats ──────────────────────────────────────────────────────────
-async function loadLiveStats() {
-  try {
-    const res = await fetch(`${F1_API}/api/public-stats`);
-    if (!res.ok) return;
-    const data = await res.json();
-    const m = data.last_30_days || {};
-    const a = data.all_time || {};
-    document.getElementById('live-usd-30d').textContent = '$' + (m.usd || 0).toFixed(4);
-    document.getElementById('live-calls-30d').textContent = (m.calls || 0).toLocaleString();
-    document.getElementById('live-tokens-30d').textContent = formatTokens(m.tokens || 0);
-    document.getElementById('live-calls-all').textContent = (a.calls || 0).toLocaleString();
-  } catch (_) {}
-}
-loadLiveStats();
-
-function formatTokens(n) {
-  if (n >= 1e9) return (n/1e9).toFixed(1) + 'B';
-  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
-  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
-  return String(n);
-}
-
-// ── Checkout modal ────────────────────────────────────────────────────────────
-function startCheckout(tier) {
-  selectedTier = tier;
-  document.getElementById('modal-tier-label').textContent = tier === 'scale' ? 'Get Scale — $99/mo' : 'Get Pro — $19/mo';
-  document.getElementById('checkout-error').style.display = 'none';
-  document.getElementById('checkout-modal').style.display = 'flex';
-}
-
-function closeModal() {
-  document.getElementById('checkout-modal').style.display = 'none';
-}
-
-async function submitCheckout() {
-  const email = document.getElementById('checkout-email').value.trim();
-  const errEl = document.getElementById('checkout-error');
-  errEl.style.display = 'none';
-  if (!email || !email.includes('@')) {
-    errEl.textContent = 'Please enter a valid email address.';
-    errEl.style.display = 'block';
-    return;
-  }
-  const btn = document.getElementById('checkout-submit');
-  btn.textContent = 'Redirecting…';
-  btn.disabled = true;
-  try {
-    const res = await fetch(`${F1_API}/api/checkout`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, tier: selectedTier }),
-    });
-    const data = await res.json();
-    if (data.checkout_url) {
-      window.location.href = data.checkout_url;
-    } else {
-      errEl.textContent = data.error || 'Payment setup failed. Please try again.';
-      errEl.style.display = 'block';
-      btn.textContent = 'Continue to payment →';
-      btn.disabled = false;
-    }
-  } catch (e) {
-    errEl.textContent = 'Network error. Please try again.';
-    errEl.style.display = 'block';
-    btn.textContent = 'Continue to payment →';
-    btn.disabled = false;
-  }
-}
-
-// Welcome message after Stripe redirect
-if (new URLSearchParams(location.search).get('f1') === 'welcome') {
-  document.querySelector('.f1-deadline-banner').innerHTML = '🎉 <strong>You\'re in!</strong> Check your email for your F1 API key + dashboard URL. If it doesn\'t arrive within 2 minutes, email <a href="mailto:hello@mini-on-ai.com" style="color:#f87171;">hello@mini-on-ai.com</a>';
-}
-</script>
+<script src="/f1/landing.js"></script>
 </body>
 </html>

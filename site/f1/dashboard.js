@@ -379,10 +379,10 @@ async function deleteAccount() {
 
 // ── Tabs ─────────────────────────────────────────────────────────────────────
 const loaded = { insights: true };
-function switchTab(name) {
+function switchTab(name, tabEl) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  event.target.classList.add('active');
+  tabEl.classList.add('active');
   document.getElementById('tab-' + name).classList.add('active');
   if (!loaded[name]) {
     loaded[name] = true;
@@ -420,3 +420,20 @@ function showSuccess(msg) {
   document.querySelector('.dash-main').prepend(el);
   setTimeout(() => el.remove(), 5000);
 }
+
+// ── Event wiring ─────────────────────────────────────────────────────────────
+// Listeners instead of inline on* attributes, so the CSP can forbid inline script.
+const actions = { uploadAnthropicKey, saveCutoverDate, saveAlerts, testAlert, clearAlerts, deleteAccount };
+document.querySelectorAll('[data-action]').forEach(el => {
+  el.addEventListener('click', () => actions[el.dataset.action]());
+});
+document.querySelectorAll('.tab[data-tab]').forEach(t => {
+  t.addEventListener('click', () => switchTab(t.dataset.tab, t));
+});
+document.getElementById('billing-portal-btn').addEventListener('click', e => {
+  e.preventDefault();
+  openPortal();
+});
+document.getElementById('prompt-optin-checkbox').addEventListener('change', e => {
+  savePromptOptin(e.target.checked);
+});
