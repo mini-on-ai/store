@@ -131,7 +131,7 @@ def generate_thumbnail(title: str, category: str, output_path: Path):
 
     # ── Bottom watermark ──────────────────────────────────────────────────
     wm_font = _font(32)
-    draw.text((64, H - 64), "mini-on-ai.com", font=wm_font, fill=(255, 255, 255, 180))
+    draw.text((64, H - 64), "store.mini-on-ai.com", font=wm_font, fill=(255, 255, 255, 180))
 
     # ── Right accent bar ──────────────────────────────────────────────────
     draw.rectangle([W - 8, 0, W, H], fill=darken(bg_rgb, 0.5))

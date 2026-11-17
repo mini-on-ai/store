@@ -1,7 +1,7 @@
 """
 f1_client.py — Drop-in Anthropic SDK client routed through the F1 proxy.
 
-F1 (https://mini-on-ai.com/f1) is a BYOK Anthropic cost-tracking proxy.
+F1 (https://store.mini-on-ai.com/f1) is a BYOK Anthropic cost-tracking proxy.
 All calls go to api.anthropic.com via F1, which records token usage + USD
 cost to a D1 database without storing prompt content.
 

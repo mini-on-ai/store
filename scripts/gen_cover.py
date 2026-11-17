@@ -262,7 +262,7 @@ def make_cover():
     draw_text_pixels(pixels, "Download now", btn_x + 28, btn_y + 16, 3, WHITE)
 
     # URL text at bottom of card
-    draw_text_pixels(pixels, "mini-on-ai.com", card_x + 50, card_y + 415, 3, (160, 162, 200))
+    draw_text_pixels(pixels, "store.mini-on-ai.com", card_x + 50, card_y + 415, 3, (160, 162, 200))
 
     return pixels
 

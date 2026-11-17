@@ -780,7 +780,7 @@ Requirements:
     desc = re.sub(r"^```[a-z]*\n?", "", desc)
     desc = re.sub(r"\n?```$", "", desc)
     desc = desc.strip()
-    desc += "\n\nDiscover more tools like this at mini-on-ai.com"
+    desc += "\n\nDiscover more tools like this at store.mini-on-ai.com"
     log("generate-product", "Generated Gumroad description")
     return desc
 

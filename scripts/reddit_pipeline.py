@@ -117,7 +117,7 @@ def build_for_post(post_id: str):
     except Exception as e:
         log("reddit-pipeline", f"Warning: Gumroad publish failed (non-fatal): {e}")
 
-    site_url = os.getenv("SITE_URL", "https://mini-on-ai.com")
+    site_url = os.getenv("SITE_URL", "https://store.mini-on-ai.com")
     product_url = gumroad_url or f"{site_url}/products/{meta['id']}.html"
 
     # Compose copy-paste Reddit reply

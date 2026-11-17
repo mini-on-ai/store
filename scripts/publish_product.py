@@ -197,7 +197,7 @@ def notify_manual_publish(pid: str, meta: dict) -> None:
     }
     cat_label = category_labels.get(category, category)
 
-    site_url = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+    site_url = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
     product_url = f"{site_url}/products/{pid}.html"
 
     msg = (

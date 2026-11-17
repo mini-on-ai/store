@@ -16,7 +16,7 @@ id = "4c8f3a38eaa7488a82938f1e8cbdd97c"
 
 [vars]
 # Origin allowed to call /api/* dashboard endpoints
-ALLOWED_ORIGIN = "https://mini-on-ai.com"
+ALLOWED_ORIGIN = "https://store.mini-on-ai.com"
 
 # Deployed git SHA from the public mini-on-ai/f1 repo.
 # Manually bumped on each deploy; surfaced via X-F1-Commit response header
@@ -24,7 +24,7 @@ ALLOWED_ORIGIN = "https://mini-on-ai.com"
 BUILD_COMMIT = "77eb186d768394f8c316ba28cda49379eab9428f"
 
 # Site URL used in Stripe success/cancel callbacks
-SITE_URL = "https://mini-on-ai.com"
+SITE_URL = "https://store.mini-on-ai.com"
 
 # Stripe Price IDs — fill in after creating products in Stripe dashboard
 STRIPE_PRICE_PRO = "price_1TbSDbCHYMwZNPVbdfHXRwcH"

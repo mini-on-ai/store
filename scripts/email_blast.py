@@ -25,7 +25,7 @@ from lib.utils import log
 
 BREVO_API_KEY = os.getenv("BREVO_API_KEY", "")
 BREVO_LIST_ID = int(os.getenv("BREVO_LIST_ID", "2"))
-SITE_URL      = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+SITE_URL      = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
 SENDER_NAME   = os.getenv("BREVO_SENDER_NAME", "mini-on-ai")
 SENDER_EMAIL  = os.getenv("BREVO_SENDER_EMAIL", "kirozdormu@gmail.com")
 
@@ -112,7 +112,7 @@ def _text_to_html(text: str) -> str:
           <hr style="border:none;border-top:1px solid #e5e7eb;margin:32px 0;">
           <p style="margin:0;font-size:12px;color:#9ca3af;">
             You're receiving this because you downloaded a free product from
-            <a href="{SITE_URL}" style="color:#6366F1;">mini-on-ai.com</a>.
+            <a href="{SITE_URL}" style="color:#6366F1;">store.mini-on-ai.com</a>.
             <br>To unsubscribe, reply with "unsubscribe".
           </p>
         </td></tr>

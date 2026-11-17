@@ -1,4 +1,2 @@
 User-agent: *
 Allow: /
-Disallow: /play/
-Sitemap: https://mini-on-ai.com/sitemap.xml

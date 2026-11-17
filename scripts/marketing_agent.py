@@ -52,7 +52,7 @@ REDDIT_COOLDOWN_DAYS = 1      # min days between reddit reply copies
 REDDIT_MIN_SCORE    = 60      # min score to send a reply copy
 REDDIT_MAX_AGE_DAYS = 14      # ignore posts older than this
 
-SITE_URL = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+SITE_URL = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
 
 # Generic autonomous tweet texts
 GENERIC_TWEETS = [
@@ -358,13 +358,13 @@ def run_email_blast(state: dict) -> None:
             messages=[{
                 "role": "user",
                 "content": (
-                    "Write a short email to subscribers of mini-on-ai.com about new products.\n\n"
+                    "Write a short email to subscribers of store.mini-on-ai.com about new products.\n\n"
                     f"New products this week:\n{product_list}\n\n"
                     "Instructions:\n"
                     "- Under 200 words\n"
                     "- Plain, genuine tone — no marketing superlatives, no 'exciting news'\n"
                     "- Start with what's new, briefly\n"
-                    "- End with one line mentioning Build Your Own at https://mini-on-ai.com/build\n"
+                    "- End with one line mentioning Build Your Own at https://store.mini-on-ai.com/build\n"
                     "- Do not add a subject line — just the email body\n"
                     "- Use product URLs as-is (don't shorten or modify them)"
                 ),

@@ -46,7 +46,7 @@ Requirements:
         desc = msg.content[0].text.strip()
         desc = re.sub(r"^```[a-z]*\n?", "", desc)
         desc = re.sub(r"\n?```$", "", desc)
-        desc = desc.strip() + "\n\nDiscover more tools like this at mini-on-ai.com"
+        desc = desc.strip() + "\n\nDiscover more tools like this at store.mini-on-ai.com"
 
         p["gumroad_description"] = desc
 

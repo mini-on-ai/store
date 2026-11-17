@@ -193,7 +193,7 @@ def cmd_missing(args: str = "") -> str:
     price_cents = meta.get("price") or 0
     price_str   = f"${price_cents // 100}" if price_cents else "free"
     package     = meta.get("package_path", f"products/{pid}/package.zip")
-    site_url    = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+    site_url    = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
     product_url = f"{site_url}/products/{pid}.html"
     gumroad_desc = meta.get("gumroad_description", "")
 
@@ -502,7 +502,7 @@ def cmd_help(group: str = "") -> str:
             "<b>/tweet 3</b> — Draft tweet for product #3 from the list\n\n"
             "Draft is sent as tap-to-copy text — paste it into X manually.\n"
             "  🔄 <b>Regenerate</b> — Claude writes a fresh angle (different hook)\n\n"
-            "Tweets always link to mini-on-ai.com, never Gumroad.\n"
+            "Tweets always link to store.mini-on-ai.com, never Gumroad.\n"
             "Hashtags are community-targeted by product category."
         )
 
@@ -1055,7 +1055,7 @@ def _generate_blast_draft() -> dict:
         except Exception:
             pass
 
-    site_url = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+    site_url = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
 
     product_lines = "\n".join(
         f'- {p["title"]} ({site_url}/products/{p["id"]}.html)'
@@ -1066,7 +1066,7 @@ def _generate_blast_draft() -> dict:
         for p in blog_posts
     )
 
-    prompt = f"""Write a short, personal email to send to a small list (~20 people) who downloaded free digital products from mini-on-ai.com.
+    prompt = f"""Write a short, personal email to send to a small list (~20 people) who downloaded free digital products from store.mini-on-ai.com.
 
 Recent products:
 {product_lines}
@@ -1237,7 +1237,7 @@ def _handle_tweet_regen(product_id: str, cq_id: str, chat_id: str) -> None:
     try:
         from lib.f1_client import make_client
         client = make_client()
-        site_url = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+        site_url = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
         pid = meta.get("id", "")
         product_url = f"{site_url}/products/{pid}.html" if pid else site_url
         cat = meta.get("category", "")

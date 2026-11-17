@@ -26,7 +26,7 @@ MODEL = "claude-haiku-4-20250514"
 client = make_client()
 
 BLOG_POSTS_PATH = "data/blog-posts.json"
-SITE_URL = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+SITE_URL = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
 
 
 def _slug(text: str) -> str:

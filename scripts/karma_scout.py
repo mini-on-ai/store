@@ -268,7 +268,7 @@ KARMA_SUBREDDITS = [
     "passive_income",
 ]
 
-_SITE = "https://mini-on-ai.com"
+_SITE = "https://store.mini-on-ai.com"
 _ATS_URL = f"{_SITE}/products/prompts-ats-optimized-resume-bullet-rewriter-by--2.html"
 
 # VERIFIED post-friendly subreddits (rules checked 2026-03-26):

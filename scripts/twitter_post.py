@@ -156,7 +156,7 @@ _CATEGORY_HASHTAGS = {
 
 def draft_for_product(meta: dict) -> str:
     """Generate a deterministic tweet draft for a given product meta dict."""
-    site_url = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+    site_url = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
     title    = meta.get("title", "New product")
     desc     = meta.get("description", "")
     price_cents = meta.get("price_usd") or meta.get("price") or 0
@@ -197,7 +197,7 @@ def draft_for_product(meta: dict) -> str:
 
 
 def _draft_from_latest_product() -> str:
-    site_url = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+    site_url = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
 
     try:
         catalog = read_json("data/product-catalog.json")

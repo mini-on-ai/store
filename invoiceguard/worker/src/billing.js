@@ -1,6 +1,6 @@
 import { corsJson, parseJson, requireUser } from "./index.js";
 
-const SITE_URL = "https://mini-on-ai.com";
+const SITE_URL = "https://store.mini-on-ai.com";
 
 // -----------------------------------------------------------------------------
 // POST /api/subscribe -- create Stripe Checkout session for $7/month

@@ -49,7 +49,7 @@ def send_telegram(text: str) -> bool:
 
 def _format_gumroad_html(desc: str) -> str:
     """Convert plain gumroad description to Telegram HTML with formatting."""
-    site_url = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+    site_url = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
     lines = desc.splitlines()
     out = []
     for line in lines:
@@ -60,10 +60,10 @@ def _format_gumroad_html(desc: str) -> str:
         elif line.startswith("—"):
             out.append(f"• {_he(line[1:].lstrip())}")
         # Footer link
-        elif "mini-on-ai.com" in line:
+        elif "store.mini-on-ai.com" in line:
             linked = line.replace(
-                "mini-on-ai.com",
-                f'<a href="{site_url}">mini-on-ai.com</a>'
+                "store.mini-on-ai.com",
+                f'<a href="{site_url}">store.mini-on-ai.com</a>'
             )
             out.append(f"<i>{linked}</i>")
         else:
@@ -111,7 +111,7 @@ def telegram_report(override_message: str = None) -> bool:
         return False
 
     latest = runs[-1]
-    site_url = os.getenv("SITE_URL", "https://mini-on-ai.com")
+    site_url = os.getenv("SITE_URL", "https://store.mini-on-ai.com")
 
     if latest.get("status") == "success":
         product = latest.get("product") or {}

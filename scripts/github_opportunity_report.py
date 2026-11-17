@@ -78,7 +78,7 @@ def fetch_trending_repos(days: int = 7, count: int = REPO_COUNT) -> list[dict]:
 
 # ── Claude analysis ───────────────────────────────────────────────────────────
 
-SYSTEM_PROMPT = """You are a market analyst for mini-on-ai.com, a digital product factory
+SYSTEM_PROMPT = """You are a market analyst for store.mini-on-ai.com, a digital product factory
 that sells prompt packs, checklists, mini-guides, and Chrome extensions to freelancers,
 developers, and small business owners on Gumroad ($9–$49).
 
@@ -121,7 +121,7 @@ Score 0 for any idea that substantially overlaps with the above list.
     repos_json = json.dumps(repos, indent=2)
     prompt = f"""Here are {len(repos)} trending GitHub repos from the past 7 days.
 {existing_block}
-For each repo, score the digital product opportunity for mini-on-ai.com (0–100).
+For each repo, score the digital product opportunity for store.mini-on-ai.com (0–100).
 Only score above 60 if there is a real, specific product gap worth building.
 
 Return a JSON array (no markdown, raw JSON only) with one object per repo:
@@ -214,7 +214,7 @@ def build_email_html(ideas: list[dict], repos_count: int, run_date: str) -> str:
 
           <hr style="border:none;border-top:1px solid #e5e7eb;margin:32px 0;">
           <p style="margin:0;font-size:12px;color:#9ca3af;">
-            Daily GitHub Opportunity Scout · <a href="https://mini-on-ai.com" style="color:#6366f1;">mini-on-ai.com</a>
+            Daily GitHub Opportunity Scout · <a href="https://store.mini-on-ai.com" style="color:#6366f1;">store.mini-on-ai.com</a>
           </p>
         </td></tr>
       </table>

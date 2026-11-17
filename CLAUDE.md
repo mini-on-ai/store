@@ -3,7 +3,7 @@
 ## What This Project Is
 
 mini-on-ai is an AI-powered digital product factory running on a Mac mini.
-It continuously generates, packages, and publishes small digital products to a public showcase website at `mini-on-ai.com`.
+It continuously generates, packages, and publishes small digital products to a public showcase website at `store.mini-on-ai.com` (moved off the bare domain on 2026-11-17, kept out of search engines; see Site Hosting).
 
 Products are sold via Gumroad ($9–$49). The vitrine is focused on Claude Code skills & prompt packs (see `archive/README.md`). The "Build Your Own" page was pulled from the site but its Worker (`mini-on-ai-generate`) stays deployed.
 
@@ -101,7 +101,10 @@ This regenerates all product pages, index, and blog index. Then a push to `main`
 
 ## Site Hosting
 
-`mini-on-ai.com` is served by **GitHub Pages**, not Cloudflare Pages. Verified 2026-11-02:
+The store `store.mini-on-ai.com` is served by **GitHub Pages**, not Cloudflare Pages. Verified 2026-11-02 (domain moved 2026-11-17):
+
+- **The bare domain `mini-on-ai.com` is no longer this site.** Since 2026-11-17 it is a neutral "mini" page from the brand account's repo `mini-on-ai/accueil`, because the parents' letter lives at `lettre.mini-on-ai.com` and its readers must not land on the store. That repo's 404 page forwards every old store path to `store.mini-on-ai.com`, so old links (Gumroad, Stripe callbacks, emails) keep working. Never link the store from the bare domain or from the letter.
+- **The store is noindex.** Every page carries `<meta name="robots" content="noindex, nofollow">` (added by `update_site.py`; any other script that writes site HTML must add it too); there is no sitemap. Do not undo this without the user.
 
 - **Deploy:** `.github/workflows/deploy.yml` publishes `site/` on pushes to `main` that touch `site/**`. Custom domain comes from `site/CNAME`.
 - **DNS:** Namecheap BasicDNS (`dns1/dns2.registrar-servers.com`). Apex A records point to GitHub's `185.199.108-111.153`; `www` is a CNAME to `abenjelloun1989.github.io`, which redirects to the apex. The domain is not a Cloudflare zone, so Cloudflare rules (transform rules, Workers routes) cannot apply to it.
@@ -120,7 +123,7 @@ Two workers deployed (not in this repo, managed in Cloudflare dashboard):
 - `worker/generate.js` — Build Your Own: generate (Anthropic Haiku) → Stripe checkout → ZIP download. Deployed as `mini-on-ai-generate`.
 - `worker/subscribe.js` — Brevo subscribe proxy. Deployed as `mini-on-ai-subscribe`.
 
-Both use `ALLOWED_ORIGIN = "https://mini-on-ai.com"` CORS. Secrets in CF environment.
+Both use `ALLOWED_ORIGIN = "https://store.mini-on-ai.com"` CORS. Secrets in CF environment.
 
 ## Chrome Extensions
 
@@ -188,7 +191,7 @@ Read these at the start of the relevant task:
 ANTHROPIC_API_KEY=         # Claude API
 TELEGRAM_BOT_TOKEN=        # Telegram bot
 TELEGRAM_CHAT_ID=          # Your Telegram chat
-SITE_URL=                  # https://mini-on-ai.com
+SITE_URL=                  # https://store.mini-on-ai.com
 BREVO_SUBSCRIBE_URL=       # CF Worker URL for email subscribe
 GUMROAD_API_TOKEN=         # Gumroad API
 ```

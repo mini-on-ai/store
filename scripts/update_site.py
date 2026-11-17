@@ -7,6 +7,7 @@ Usage: python3 scripts/update_site.py [--id product-id]
 """
 
 import argparse
+import re
 import json
 import os
 import sys
@@ -61,10 +62,20 @@ document.addEventListener('DOMContentLoaded', function() {{
 }});
 </script>"""
 
-from lib.utils import read_json, write_json, write_file, ROOT, log
+from lib.utils import read_json, write_json, write_file as _write_file, ROOT, log
+
+# The store lives on store.mini-on-ai.com and stays out of search engines:
+# every page it writes carries a noindex tag.
+NOINDEX = '<meta name="robots" content="noindex, nofollow">'
+
+
+def write_file(rel_path: str, content: str) -> None:
+    if rel_path.endswith(".html") and 'name="robots"' not in content:
+        content = re.sub(r"(<head[^>]*>)", r"\1\n  " + NOINDEX, content, count=1, flags=re.I)
+    _write_file(rel_path, content)
 
 CONTACT_EMAIL = "hello@mini-on-ai.com"
-SITE_URL = os.getenv("SITE_URL", "https://mini-on-ai.com").rstrip("/")
+SITE_URL = os.getenv("SITE_URL", "https://store.mini-on-ai.com").rstrip("/")
 
 
 def _og_tags_product(meta: dict) -> str:
@@ -164,9 +175,9 @@ def write_sitemap(catalog: dict) -> None:
         pass
     lines.append("</urlset>")
     total = len(catalog.get("products", [])) + 1
-    write_file("site/sitemap.xml", "\n".join(lines) + "\n")
-    log("update-site", f"Wrote site/sitemap.xml ({total} URLs)")
-    write_file("site/robots.txt", f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}/sitemap.xml\n")
+    # No sitemap: the store is kept out of search engines. Crawling stays allowed so they see the noindex.
+    write_file("site/robots.txt", "User-agent: *\nAllow: /\n")
+    log("update-site", f"Sitemap skipped ({total} URLs): the store is noindex")
     log("update-site", "Wrote site/robots.txt")
 
 CATEGORY_LABELS = {
@@ -339,10 +350,10 @@ def _render_gumroad_description(text: str) -> str:
             continue
 
         # Footer link line
-        if "mini-on-ai.com" in stripped:
+        if "store.mini-on-ai.com" in stripped:
             linked = escape_html(stripped).replace(
-                "mini-on-ai.com",
-                '<a href="https://mini-on-ai.com">mini-on-ai.com</a>'
+                "store.mini-on-ai.com",
+                '<a href="https://store.mini-on-ai.com">store.mini-on-ai.com</a>'
             )
             html_parts.append(f'<p class="desc-footer">{linked}</p>')
             i += 1

@@ -1,7 +1,7 @@
 /**
  * Cloudflare Worker — Brevo email subscribe proxy
  *
- * Receives { email } from the mini-on-ai.com subscribe forms and
+ * Receives { email } from the store.mini-on-ai.com subscribe forms and
  * forwards to Brevo API using the secret key stored in CF environment.
  *
  * Deploy:
@@ -13,7 +13,7 @@
  *   5. Set BREVO_SUBSCRIBE_URL=<worker URL> in your .env and rebuild the site
  */
 
-const ALLOWED_ORIGIN = "https://mini-on-ai.com";
+const ALLOWED_ORIGIN = "https://store.mini-on-ai.com";
 
 export default {
   async fetch(request, env) {

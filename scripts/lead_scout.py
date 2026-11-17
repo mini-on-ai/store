@@ -117,7 +117,7 @@ CROSS_LINK_REGEX = re.compile(
     r"mini-on-ai\.com|ClauseGuard|InvoiceGuard|JobGuard", re.IGNORECASE
 )
 DEFAULT_SIGNATURE = (
-    "\n\n— hello@mini-on-ai.com · mini-on-ai.com — small AI tools for "
+    "\n\n— hello@mini-on-ai.com · store.mini-on-ai.com — small AI tools for "
     "freelancers & SMBs"
 )
 
@@ -130,7 +130,7 @@ Their hook: {lead.get('personalization_hook', '')}
 Practice note: {lead.get('practice_note', '')}
 
 Goal: introduce ClauseGuard — a Chrome extension that reviews contracts with AI in seconds.
-ClauseGuard landing page: https://mini-on-ai.com/clauseguard.html
+ClauseGuard landing page: https://store.mini-on-ai.com/clauseguard.html
 
 Constraints:
 - Under 110 words
@@ -140,7 +140,7 @@ Constraints:
 - No emojis, no marketing fluff, no "I hope this finds you well"
 - No mention of free trials, phone calls, demos, or any offer the sender cannot guarantee
 - Sender is "hello@mini-on-ai.com"
-- MANDATORY: include a brief signature/P.S. that references mini-on-ai.com OR a related product (ClauseGuard / InvoiceGuard / JobGuard). Keep it natural, one short line.
+- MANDATORY: include a brief signature/P.S. that references store.mini-on-ai.com OR a related product (ClauseGuard / InvoiceGuard / JobGuard). Keep it natural, one short line.
 
 Output format (no commentary, no markdown):
 Subject: <subject line>

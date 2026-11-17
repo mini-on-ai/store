@@ -4,9 +4,9 @@
 
 An AI-powered digital product factory running on a Mac mini. It scans Reddit for unmet needs, generates matching products, publishes them to Gumroad, and manages Reddit karma — all controlled from Telegram.
 
-Visitors can also generate a **custom product on-demand** via the [Build Your Own](https://mini-on-ai.com/build.html) page: describe a use case, preview the output for free, download for $9.
+Visitors can also generate a **custom product on-demand** via the [Build Your Own](https://store.mini-on-ai.com/build.html) page: describe a use case, preview the output for free, download for $9.
 
-**Live site:** [mini-on-ai.com](https://mini-on-ai.com)
+**Live site:** [store.mini-on-ai.com](https://store.mini-on-ai.com)
 
 ---
 
@@ -173,9 +173,9 @@ Three Chrome extensions ship alongside the product factory — independently mai
 
 | Extension | Version | Description | Status |
 |---|---|---|---|
-| [**ClauseGuard**](https://mini-on-ai.com/clauseguard.html) | v1.3.1 | AI contract & NDA analyzer — risk score, red flags, suggested rewrites | Live on CWS |
-| [**InvoiceGuard**](https://mini-on-ai.com/invoiceguard.html) | v1.1.1 | Gmail invoice tracker — AI extraction, overdue alerts, follow-up reminders | Live on CWS |
-| [**JobGuard**](https://mini-on-ai.com/jobguard.html) | v1.0.1 | AI job posting analyzer — spot scam signals, spec work traps, lowball pay | Pending CWS review |
+| [**ClauseGuard**](https://store.mini-on-ai.com/clauseguard.html) | v1.3.1 | AI contract & NDA analyzer — risk score, red flags, suggested rewrites | Live on CWS |
+| [**InvoiceGuard**](https://store.mini-on-ai.com/invoiceguard.html) | v1.1.1 | Gmail invoice tracker — AI extraction, overdue alerts, follow-up reminders | Live on CWS |
+| [**JobGuard**](https://store.mini-on-ai.com/jobguard.html) | v1.0.1 | AI job posting analyzer — spot scam signals, spec work traps, lowball pay | Pending CWS review |
 
 All three are free with a $7/month Pro tier. Shared UI code lives in `_shared/` and is synced to each extension by `scripts/sync_shared.py`.
 
