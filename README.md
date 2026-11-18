@@ -305,7 +305,7 @@ mini-on-factory/
 ## Setup
 
 ```bash
-git clone https://github.com/abenjelloun1989/mini-on-ai
+git clone https://github.com/mini-on-ai/store
 cd mini-on-ai
 pip3 install anthropic python-dotenv pillow
 

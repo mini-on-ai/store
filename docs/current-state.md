@@ -44,7 +44,7 @@ Last updated: 2026-03-13 (category filter nav + Claude Code Skills + Telegram ca
 ### Domain + Email ✅
 - Domain: mini-on-ai.com — live with HTTPS
 - Email: hello@mini-on-ai.com — forwarding via ImprovMX (free)
-- DNS at Namecheap: A records → GitHub Pages IPs, CNAME www → abenjelloun1989.github.io
+- DNS at Namecheap: A records → GitHub Pages IPs, CNAME www → mini-on-ai.github.io
 - MX records: mx1.improvmx.com (10), mx2.improvmx.com (20)
 
 ### Gumroad Publisher ✅
@@ -102,7 +102,7 @@ Last updated: 2026-03-13 (category filter nav + Claude Code Skills + Telegram ca
 - Cost model: Sonnet $3/$15 per MTok in/out, Haiku $0.80/$4
 
 ### Infrastructure
-- Git repo: https://github.com/abenjelloun1989/mini-on-ai
+- Git repo: https://github.com/mini-on-ai/store
 - License: All Rights Reserved
 - Python 3.9, anthropic + python-dotenv + requests
 

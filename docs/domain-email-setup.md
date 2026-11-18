@@ -25,11 +25,11 @@ Delete any existing A records or CNAME for `@`, then add:
 | A     | @    | 185.199.109.153          | Auto |
 | A     | @    | 185.199.110.153          | Auto |
 | A     | @    | 185.199.111.153          | Auto |
-| CNAME | www  | abenjelloun1989.github.io | Auto |
+| CNAME | www  | mini-on-ai.github.io | Auto |
 
 ### Step 3 — Configure GitHub Pages
 
-1. Go to https://github.com/abenjelloun1989/mini-on-ai/settings/pages
+1. Go to https://github.com/mini-on-ai/store/settings/pages
 2. Under **Custom domain** → type `mini-on-ai.com` → Save
 3. Wait ~5 minutes for DNS propagation
 4. Check **Enforce HTTPS** (appears once DNS is confirmed)
