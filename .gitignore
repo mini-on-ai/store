@@ -9,4 +9,5 @@ __pycache__/
 data/daemon-state.json
 data/approval-state.json
 data/pipeline-log.json
-Sales20260430-114-xe51vw.csv
+# Gumroad sales exports (customer names and emails) — never commit
+Sales*.csv
