@@ -111,9 +111,9 @@ The store `store.mini-on-ai.com` is served by **GitHub Pages**, not Cloudflare P
 - **`site/_headers` and `site/_redirects` do nothing.** They are Cloudflare Pages files; GitHub Pages serves them as plain downloads. No CSP, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy` or HSTS reaches browsers, and the archived URLs in `_redirects` return 404 rather than 301. The CSPs in `_headers` have never been enforced, so do not treat them as protection or as tested.
 - **`_headers` cannot go live as written.** It would break the site: see the warning below.
 - **Page-level protection available today:** `<meta http-equiv="Content-Security-Policy">` and `<meta name="referrer">` work. `frame-ancestors`, `X-Frame-Options`, `X-Content-Type-Options` and HSTS cannot be set from a page.
-- **F1 pages enforce a meta CSP** (`script-src 'self'`) on `f1.html`, `f1/dashboard.html` and `f1/security.html`. Keep them free of inline `<script>` and `on*=` attributes: put code in `/f1/landing.js` or `/f1/dashboard.js` and wire it with listeners, or the meta CSP silently blocks it. A new API origin must be added to `connect-src` in both the meta tag and `_headers`.
+- **F1 was retired on 2026-11-23**: its store pages are gone, the Worker `f1-api` has no public URL (D1/KV kept), `mini-on-ai/f1` is archived, and the scripts call Anthropic directly (no `F1_API_KEY`).
 
-Before moving to Cloudflare Pages or enforcing any CSP, fix `_headers`. Cloudflare Pages merges every matching rule and comma-joins repeated headers, so `/*` and `/f1` send two CSPs and browsers enforce both. Without `! Content-Security-Policy` in the specific rule, the strict `/*` policy blocks inline scripts on `/f1`. Inline `on*` handlers on `f1.html` and `f1/dashboard.html`, and the inline scripts on the 45 pages that have them, also need `'unsafe-inline'` or a refactor, and `connect-src` needs `https://cloudflareinsights.com` for the analytics beacon.
+Before moving to Cloudflare Pages or enforcing any CSP, fix `_headers`: the inline scripts on the 45 pages that have them need `'unsafe-inline'` or a refactor, and `connect-src` needs `https://cloudflareinsights.com` for the analytics beacon.
 
 Changing DNS or nameservers requires the user's explicit approval.
 
