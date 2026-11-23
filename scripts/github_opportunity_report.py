@@ -33,7 +33,7 @@ from email_blast import _brevo, _text_to_html, SENDER_NAME, SENDER_EMAIL
 
 GITHUB_TOKEN    = os.getenv("GITHUB_TOKEN", "")
 OWNER_EMAIL     = os.getenv("OWNER_EMAIL", "kirozdormu@gmail.com")
-CLAUDE_MODEL    = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5")
+CLAUDE_MODEL    = os.getenv("CLAUDE_MODEL", "claude-sonnet-5-5")
 REPO_COUNT      = 25   # repos to fetch
 SCORE_THRESHOLD = 60   # minimum score to include in report
 HOT_THRESHOLD   = 80   # "hot" badge threshold
