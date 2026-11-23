@@ -466,7 +466,6 @@ def cmd_help(group: str = "") -> str:
             "<b>/pause · /resume</b> — start/stop the daemon\n"
             "<b>/status</b> — last run, product count, API costs\n"
             "<b>/stats [days]</b> — Gumroad revenue, sales, top products, referrers\n"
-            "<b>/f1-stats</b> — F1 proxy spend + MRR (today / 30d / subscribers)\n"
             "<b>/products</b> — all published products with links\n"
             "<b>/ideas</b> — top 5 scored ideas in the backlog"
         )
@@ -711,6 +710,7 @@ def cmd_stats(days: int = 30) -> str:
 
 def cmd_f1_stats(args: str = "") -> str:
     """Fetch F1 proxy spend + MRR stats via /api/admin-stats."""
+    return "F1 was retired on 2026-11-23: the Worker no longer answers."
     import urllib.request
     import urllib.error
 

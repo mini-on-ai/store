@@ -12,14 +12,14 @@
   <meta property="og:type" content="product">
   <meta property="og:title" content="n8n Workflow Error Handling Prompts for Automation Builders">
   <meta property="og:description" content="n8n automation builders get 20 targeted prompts to systematically diagnose, document, and resolve node failures, retry logic gaps, and silent error conditions in production workflows.">
-  <meta property="og:url" content="https://store.mini-on-ai.com/products/prompts-n8n-workflow-error-handling-prompts-for--20260313.html">
-  <meta property="og:image" content="https://store.mini-on-ai.com/images/og-default.svg">
+  <meta property="og:url" content="https://mini-on-ai.com/products/prompts-n8n-workflow-error-handling-prompts-for--20260313.html">
+  <meta property="og:image" content="https://mini-on-ai.com/images/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="n8n Workflow Error Handling Prompts for Automation Builders">
   <meta name="twitter:description" content="n8n automation builders get 20 targeted prompts to systematically diagnose, document, and resolve node failures, retry logic gaps, and silent error conditions in production workflows.">
-  <link rel="canonical" href="https://store.mini-on-ai.com/products/prompts-n8n-workflow-error-handling-prompts-for--20260313.html">
+  <link rel="canonical" href="https://mini-on-ai.com/products/prompts-n8n-workflow-error-handling-prompts-for--20260313.html">
   <script type="application/ld+json">
-  {"@context": "https://schema.org/", "@type": "Product", "name": "n8n Workflow Error Handling Prompts for Automation Builders", "description": "n8n automation builders get 20 targeted prompts to systematically diagnose, document, and resolve node failures, retry logic gaps, and silent error conditions in production workflows.", "url": "https://store.mini-on-ai.com/products/prompts-n8n-workflow-error-handling-prompts-for--20260313.html", "brand": {"@type": "Brand", "name": "mini-on-ai"}, "offers": {"@type": "Offer", "priceCurrency": "USD", "price": "19", "availability": "https://schema.org/InStock", "url": "https://store.mini-on-ai.com/products/prompts-n8n-workflow-error-handling-prompts-for--20260313.html"}}
+  {"@context": "https://schema.org/", "@type": "Product", "name": "n8n Workflow Error Handling Prompts for Automation Builders", "description": "n8n automation builders get 20 targeted prompts to systematically diagnose, document, and resolve node failures, retry logic gaps, and silent error conditions in production workflows.", "url": "https://mini-on-ai.com/products/prompts-n8n-workflow-error-handling-prompts-for--20260313.html", "brand": {"@type": "Brand", "name": "mini-on-ai"}, "offers": {"@type": "Offer", "priceCurrency": "USD", "price": "19", "availability": "https://schema.org/InStock", "url": "https://mini-on-ai.com/products/prompts-n8n-workflow-error-handling-prompts-for--20260313.html"}}
   </script>
 </head>
 <body>
@@ -102,7 +102,33 @@
       }
     })();
   </script>
-
+<script>
+function wireBrevoForm(sel) {
+  var form = document.querySelector(sel);
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = form.querySelector('input[type=email]').value;
+    var btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = '...';
+    fetch('https://mini-on-ai-subscribe.kirozdormu.workers.dev', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email})
+    }).then(function(r) {
+      if (r.ok) {
+        form.innerHTML = '<p style="color:var(--brand);font-weight:600;margin:0">✅ You\'re on the list!</p>';
+      } else {
+        btn.disabled = false; btn.textContent = 'Try again';
+      }
+    }).catch(function() { btn.disabled = false; btn.textContent = 'Try again'; });
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  wireBrevoForm('.email-capture-form');
+  wireBrevoForm('.newsletter-form');
+});
+</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "97d7df5dc9454ccab192e901157799b6"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

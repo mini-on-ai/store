@@ -59,14 +59,8 @@ def make_client():
             auth_token=f1_key,
         )
 
-    # Fallback: direct Anthropic API. Warn so it's visible during migration.
+    # F1 was retired on 2026-11-23: without F1_API_KEY the scripts call Anthropic directly.
     anthropic_key = os.getenv("ANTHROPIC_API_KEY")
-    print(
-        "[f1_client] WARNING: F1_API_KEY not set — falling back to direct Anthropic API. "
-        "Set F1_API_KEY in .env to route through F1 for cost tracking. "
-        "(This will fail after June 15, 2026 unless you migrate.)",
-        file=sys.stderr,
-    )
     return anthropic.Anthropic(api_key=anthropic_key)
 
 

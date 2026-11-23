@@ -12,14 +12,14 @@
   <meta property="og:type" content="product">
   <meta property="og:title" content="Claude Code Skill: Postman Collection Builder — Convert API Docs or Specs into Ready-to-Run Postman Collections">
   <meta property="og:description" content="For solutions engineers and technical support teams, this skill transforms OpenAPI specs, markdown API documentation, or raw endpoint lists into fully structured Postman collections with example payloads and environment variables so they can onboard clients and reproduce issues faster without manual collection setup.">
-  <meta property="og:url" content="https://store.mini-on-ai.com/products/prompts-claude-code-skill-postman-collection-bui-20260314.html">
-  <meta property="og:image" content="https://store.mini-on-ai.com/images/og-default.svg">
+  <meta property="og:url" content="https://mini-on-ai.com/products/prompts-claude-code-skill-postman-collection-bui-20260314.html">
+  <meta property="og:image" content="https://mini-on-ai.com/images/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Claude Code Skill: Postman Collection Builder — Convert API Docs or Specs into Ready-to-Run Postman Collections">
   <meta name="twitter:description" content="For solutions engineers and technical support teams, this skill transforms OpenAPI specs, markdown API documentation, or raw endpoint lists into fully structured Postman collections with example payloads and environment variables so they can onboard clients and reproduce issues faster without manual collection setup.">
-  <link rel="canonical" href="https://store.mini-on-ai.com/products/prompts-claude-code-skill-postman-collection-bui-20260314.html">
+  <link rel="canonical" href="https://mini-on-ai.com/products/prompts-claude-code-skill-postman-collection-bui-20260314.html">
   <script type="application/ld+json">
-  {"@context": "https://schema.org/", "@type": "Product", "name": "Claude Code Skill: Postman Collection Builder — Convert API Docs or Specs into Ready-to-Run Postman Collections", "description": "For solutions engineers and technical support teams, this skill transforms OpenAPI specs, markdown API documentation, or raw endpoint lists into fully structured Postman collections with example payloads and environment variables so they can onboard clients and reproduce issues faster without manual collection setup.", "url": "https://store.mini-on-ai.com/products/prompts-claude-code-skill-postman-collection-bui-20260314.html", "brand": {"@type": "Brand", "name": "mini-on-ai"}, "offers": {"@type": "Offer", "priceCurrency": "USD", "price": "19", "availability": "https://schema.org/InStock", "url": "https://minionai.gumroad.com/l/trhnz"}}
+  {"@context": "https://schema.org/", "@type": "Product", "name": "Claude Code Skill: Postman Collection Builder — Convert API Docs or Specs into Ready-to-Run Postman Collections", "description": "For solutions engineers and technical support teams, this skill transforms OpenAPI specs, markdown API documentation, or raw endpoint lists into fully structured Postman collections with example payloads and environment variables so they can onboard clients and reproduce issues faster without manual collection setup.", "url": "https://mini-on-ai.com/products/prompts-claude-code-skill-postman-collection-bui-20260314.html", "brand": {"@type": "Brand", "name": "mini-on-ai"}, "offers": {"@type": "Offer", "priceCurrency": "USD", "price": "19", "availability": "https://schema.org/InStock", "url": "https://minionai.gumroad.com/l/trhnz"}}
   </script>
 </head>
 <body>
@@ -98,7 +98,33 @@
       }
     })();
   </script>
-
+<script>
+function wireBrevoForm(sel) {
+  var form = document.querySelector(sel);
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = form.querySelector('input[type=email]').value;
+    var btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = '...';
+    fetch('https://mini-on-ai-subscribe.kirozdormu.workers.dev', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email})
+    }).then(function(r) {
+      if (r.ok) {
+        form.innerHTML = '<p style="color:var(--brand);font-weight:600;margin:0">✅ You\'re on the list!</p>';
+      } else {
+        btn.disabled = false; btn.textContent = 'Try again';
+      }
+    }).catch(function() { btn.disabled = false; btn.textContent = 'Try again'; });
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  wireBrevoForm('.email-capture-form');
+  wireBrevoForm('.newsletter-form');
+});
+</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "97d7df5dc9454ccab192e901157799b6"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

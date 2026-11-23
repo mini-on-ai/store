@@ -12,14 +12,14 @@
   <meta property="og:type" content="product">
   <meta property="og:title" content="Claude Code Skill: Mock Server Scaffolder — Generate Instant API Mocks from Specs or Curl Examples">
   <meta property="og:description" content="For frontend developers and QA engineers, this skill generates fully functional mock server configurations from OpenAPI specs or raw curl examples so they can unblock UI development and testing without waiting for backend endpoints to be production-ready.">
-  <meta property="og:url" content="https://store.mini-on-ai.com/products/prompts-claude-code-skill-mock-server-scaffolder-20260313.html">
-  <meta property="og:image" content="https://store.mini-on-ai.com/images/og-default.svg">
+  <meta property="og:url" content="https://mini-on-ai.com/products/prompts-claude-code-skill-mock-server-scaffolder-20260313.html">
+  <meta property="og:image" content="https://mini-on-ai.com/images/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Claude Code Skill: Mock Server Scaffolder — Generate Instant API Mocks from Specs or Curl Examples">
   <meta name="twitter:description" content="For frontend developers and QA engineers, this skill generates fully functional mock server configurations from OpenAPI specs or raw curl examples so they can unblock UI development and testing without waiting for backend endpoints to be production-ready.">
-  <link rel="canonical" href="https://store.mini-on-ai.com/products/prompts-claude-code-skill-mock-server-scaffolder-20260313.html">
+  <link rel="canonical" href="https://mini-on-ai.com/products/prompts-claude-code-skill-mock-server-scaffolder-20260313.html">
   <script type="application/ld+json">
-  {"@context": "https://schema.org/", "@type": "Product", "name": "Claude Code Skill: Mock Server Scaffolder — Generate Instant API Mocks from Specs or Curl Examples", "description": "For frontend developers and QA engineers, this skill generates fully functional mock server configurations from OpenAPI specs or raw curl examples so they can unblock UI development and testing without waiting for backend endpoints to be production-ready.", "url": "https://store.mini-on-ai.com/products/prompts-claude-code-skill-mock-server-scaffolder-20260313.html", "brand": {"@type": "Brand", "name": "mini-on-ai"}, "offers": {"@type": "Offer", "priceCurrency": "USD", "price": "19", "availability": "https://schema.org/InStock", "url": "https://minionai.gumroad.com/l/nmaisba"}}
+  {"@context": "https://schema.org/", "@type": "Product", "name": "Claude Code Skill: Mock Server Scaffolder — Generate Instant API Mocks from Specs or Curl Examples", "description": "For frontend developers and QA engineers, this skill generates fully functional mock server configurations from OpenAPI specs or raw curl examples so they can unblock UI development and testing without waiting for backend endpoints to be production-ready.", "url": "https://mini-on-ai.com/products/prompts-claude-code-skill-mock-server-scaffolder-20260313.html", "brand": {"@type": "Brand", "name": "mini-on-ai"}, "offers": {"@type": "Offer", "priceCurrency": "USD", "price": "19", "availability": "https://schema.org/InStock", "url": "https://minionai.gumroad.com/l/nmaisba"}}
   </script>
 </head>
 <body>
@@ -98,7 +98,33 @@
       }
     })();
   </script>
-
+<script>
+function wireBrevoForm(sel) {
+  var form = document.querySelector(sel);
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = form.querySelector('input[type=email]').value;
+    var btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = '...';
+    fetch('https://mini-on-ai-subscribe.kirozdormu.workers.dev', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email})
+    }).then(function(r) {
+      if (r.ok) {
+        form.innerHTML = '<p style="color:var(--brand);font-weight:600;margin:0">✅ You\'re on the list!</p>';
+      } else {
+        btn.disabled = false; btn.textContent = 'Try again';
+      }
+    }).catch(function() { btn.disabled = false; btn.textContent = 'Try again'; });
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  wireBrevoForm('.email-capture-form');
+  wireBrevoForm('.newsletter-form');
+});
+</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "97d7df5dc9454ccab192e901157799b6"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

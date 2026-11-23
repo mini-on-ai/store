@@ -13,12 +13,12 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="mini-on-ai — Claude Code Skills & Prompt Packs for Engineering Teams">
   <meta property="og:description" content="Ready-to-use Claude Code skills and prompt packs crafted by a seasoned software engineer. Deploy in minutes, save hours every week.">
-  <meta property="og:url" content="https://store.mini-on-ai.com/">
-  <meta property="og:image" content="https://store.mini-on-ai.com/images/og-default.svg">
+  <meta property="og:url" content="https://mini-on-ai.com/">
+  <meta property="og:image" content="https://mini-on-ai.com/images/og-default.svg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="mini-on-ai — Claude Code Skills & Prompt Packs for Engineering Teams">
   <meta name="twitter:description" content="Ready-to-use Claude Code skills and prompt packs crafted by a seasoned software engineer. Deploy in minutes, save hours every week.">
-  <link rel="canonical" href="https://store.mini-on-ai.com/">
+  <link rel="canonical" href="https://mini-on-ai.com/">
 </head>
 <body>
   <header class="site-header">
@@ -95,14 +95,6 @@
           <p class="tool-card-desc">Track invoices from Gmail, get overdue alerts &amp; AI reminders. Free.</p>
         </div>
         <span class="tool-card-cta">Add to Chrome →</span>
-      </a>
-      <a href="f1.html" class="tool-card">
-        <span class="tool-card-icon">⬡</span>
-        <div>
-          <strong class="tool-card-title">F1 Proxy</strong>
-          <p class="tool-card-desc">Anthropic API cost tracking &amp; optimization insights. BYOK, $19/mo.</p>
-        </div>
-        <span class="tool-card-cta">Try F1 →</span>
       </a>
     </div>
   </section>
@@ -504,7 +496,7 @@
 
   <footer class="site-footer">
     <p>&copy; 2026 mini-on-ai &nbsp;·&nbsp; <a href="mailto:hello@mini-on-ai.com">hello@mini-on-ai.com</a> &nbsp;·&nbsp; <a href="/privacy">Privacy</a> &nbsp;·&nbsp; <a href="/terms">Terms</a></p>
-    <p class="site-footer-tools"><a href="ats.html">ATS Resume Checker</a> &nbsp;·&nbsp; <a href="clauseguard.html">ClauseGuard</a> &nbsp;·&nbsp; <a href="invoiceguard.html">InvoiceGuard</a> &nbsp;·&nbsp; <a href="f1.html">F1 Proxy</a></p>
+    <p class="site-footer-tools"><a href="ats.html">ATS Resume Checker</a> &nbsp;·&nbsp; <a href="clauseguard.html">ClauseGuard</a> &nbsp;·&nbsp; <a href="invoiceguard.html">InvoiceGuard</a></p>
   </footer>
 
   <script>
@@ -611,7 +603,33 @@
       });
     })();
   </script>
-
+<script>
+function wireBrevoForm(sel) {
+  var form = document.querySelector(sel);
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = form.querySelector('input[type=email]').value;
+    var btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = '...';
+    fetch('https://mini-on-ai-subscribe.kirozdormu.workers.dev', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email: email})
+    }).then(function(r) {
+      if (r.ok) {
+        form.innerHTML = '<p style="color:var(--brand);font-weight:600;margin:0">✅ You\'re on the list!</p>';
+      } else {
+        btn.disabled = false; btn.textContent = 'Try again';
+      }
+    }).catch(function() { btn.disabled = false; btn.textContent = 'Try again'; });
+  });
+}
+document.addEventListener('DOMContentLoaded', function() {
+  wireBrevoForm('.email-capture-form');
+  wireBrevoForm('.newsletter-form');
+});
+</script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "97d7df5dc9454ccab192e901157799b6"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
