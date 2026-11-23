@@ -19,10 +19,11 @@ load_dotenv(Path(__file__).parent.parent / ".env", override=True)
 import os
 from lib.f1_client import make_client
 from lib.utils import read_json, write_json, timestamp, log, extract_json, log_token_usage
+from lib.utils import sans_reflexion
 from lib.trend_sources import get_google_trends_rising
 
 client = make_client()
-MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-6")
+MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-5-5")
 
 
 SEED_ROTATION = [
@@ -77,6 +78,7 @@ def _trend_scan_skills(count: int = 5) -> list:
 
     message = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=1536,
         messages=[{
             "role": "user",
@@ -166,6 +168,7 @@ def trend_scan(seed: str = "", count: int = 10) -> list:
 
     message = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=1536,
         messages=[
             {

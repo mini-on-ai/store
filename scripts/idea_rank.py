@@ -18,9 +18,10 @@ import json
 import os
 from lib.f1_client import make_client
 from lib.utils import read_json, write_json, log, extract_json, log_token_usage
+from lib.utils import sans_reflexion
 
 client = make_client()
-MODEL = "claude-haiku-4-5-20251001"  # scoring task — Haiku is sufficient
+MODEL = "claude-haiku-5-5"  # scoring task — Haiku is sufficient
 
 
 def idea_rank():
@@ -39,6 +40,7 @@ def idea_rank():
 
         message = client.messages.create(
             model=MODEL,
+            **sans_reflexion(MODEL),
             max_tokens=1024,
             messages=[
                 {

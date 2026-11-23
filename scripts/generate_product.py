@@ -26,9 +26,10 @@ load_dotenv(Path(__file__).parent.parent / ".env", override=True)
 import os
 from lib.f1_client import make_client
 from lib.utils import read_json, write_json, write_file, ensure_dir, product_id, timestamp, log, extract_json, log_token_usage
+from lib.utils import sans_reflexion
 
 client = make_client()
-MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-6")
+MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-5-5")
 
 VALID_CATEGORIES = {"prompt-packs", "checklist", "swipe-file", "mini-guide", "n8n-template", "claude-code-skill"}
 
@@ -86,6 +87,7 @@ def generate_product() -> dict:
 def _gen_prompt_pack(idea: dict, pid: str, assets_dir: str) -> dict:
     message = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=6144,
         messages=[{
             "role": "user",
@@ -172,6 +174,7 @@ def _prompts_readme(idea, count):
 def _gen_checklist(idea: dict, pid: str, assets_dir: str) -> dict:
     message = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=4096,
         messages=[{
             "role": "user",
@@ -264,6 +267,7 @@ def _checklist_readme(idea, count):
 def _gen_swipe_file(idea: dict, pid: str, assets_dir: str) -> dict:
     message = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=6144,
         messages=[{
             "role": "user",
@@ -356,6 +360,7 @@ def _swipe_readme(idea, count):
 def _gen_mini_guide(idea: dict, pid: str, assets_dir: str) -> dict:
     message = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=6144,
         messages=[{
             "role": "user",
@@ -425,6 +430,7 @@ def _guide_readme(idea):
 def _gen_n8n_template(idea: dict, pid: str, assets_dir: str) -> dict:
     message = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=16000,
         messages=[{
             "role": "user",
@@ -524,6 +530,7 @@ def _gen_skill_pack(idea: dict, pid: str, assets_dir: str) -> dict:
     # ── Call 1: Pack structure — 5 skill specs ──────────────────────────────────
     msg1 = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=2048,
         messages=[{
             "role": "user",
@@ -576,6 +583,7 @@ Requirements:
 
         msg = client.messages.create(
             model=MODEL,
+            **sans_reflexion(MODEL),
             max_tokens=4096,
             messages=[{
                 "role": "user",
@@ -754,6 +762,7 @@ def _gen_gumroad_description(idea: dict, meta: dict) -> str:
 
     message = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=1024,
         messages=[{
             "role": "user",

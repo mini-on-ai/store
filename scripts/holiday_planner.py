@@ -23,9 +23,10 @@ load_dotenv(Path(__file__).parent.parent / ".env", override=True)
 from lib.claude_cli import claude_call as _cli_call   # WebSearch — needs CLI
 from lib.f1_client import make_client, claude_call
 from lib.utils import read_json, write_json, log, timestamp, extract_json, log_token_usage, ROOT
+from lib.utils import sans_reflexion
 
-RESEARCH_MODEL = "claude-sonnet-4-20250514"
-HAIKU_MODEL = "claude-haiku-4-20250514"
+RESEARCH_MODEL = "claude-sonnet-5-5"
+HAIKU_MODEL = "claude-haiku-5-5"
 
 # French school holidays 2025-2026 (source: education.gouv.fr)
 FRENCH_SCHOOL_HOLIDAYS_2026 = [
@@ -261,6 +262,7 @@ Constraints:
     try:
         response = client.messages.create(
             model=HAIKU_MODEL,
+            **sans_reflexion(HAIKU_MODEL),
             max_tokens=800,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -374,16 +376,16 @@ def _run_web_search_loop(client, prompt: str, max_uses: int = 12) -> str:
     except Exception as e:
         log("holiday", f"CLI web search failed: {e} — falling back to direct API")
         # Fallback: direct API without web search (knowledge-based)
-        tools = [{"type": "web_search_20250305", "name": "web_search", "max_uses": max_uses}]
+        tools = [{"type": "web_search_20260209", "name": "web_search", "max_uses": max_uses}]
         messages = [{"role": "user", "content": prompt}]
 
         for iteration in range(15):
             response = client.messages.create(
                 model=RESEARCH_MODEL,
+                **sans_reflexion(RESEARCH_MODEL),
                 max_tokens=5000,
                 tools=tools,
                 messages=messages,
-                betas=["web-search-2025-03-05"],
             )
 
             final_text = ""
@@ -541,6 +543,7 @@ Make prices realistic for the given period. All 3 proposals must be different de
         try:
             response = client.messages.create(
                 model=RESEARCH_MODEL,
+                **sans_reflexion(RESEARCH_MODEL),
                 max_tokens=4000,
                 messages=[{"role": "user", "content": prompt}],
             )

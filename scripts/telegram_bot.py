@@ -32,6 +32,7 @@ from dotenv import load_dotenv
 load_dotenv(Path(__file__).parent.parent / ".env", override=True)
 
 from lib.utils import read_json, write_json, timestamp, log, ROOT, get_run_token_summary, get_lifetime_token_summary
+from lib.utils import sans_reflexion
 
 # --- trading-routine integration ----------------------------------------------
 # Optional: lets /pea-* commands and pea:* callbacks route to the trading-routine repo.
@@ -361,10 +362,13 @@ def cmd_tokens() -> str:
 
     from collections import defaultdict
     _COST = {
+        "claude-sonnet-5-5":         (2.00, 10.00),
+        "claude-haiku-5-5":          (0.10,  0.50),
+        "claude-opus-5-5":           (4.00, 20.00),
         "claude-sonnet-4-6":         (3.00, 15.00),
-        "claude-haiku-4-5-20251001": (0.80,  4.00),
-        "claude-haiku-4-5":          (0.80,  4.00),
-        "claude-opus-4-6":           (15.0, 75.00),
+        "claude-haiku-4-5-20251001": (1.00,  5.00),
+        "claude-haiku-4-5":          (1.00,  5.00),
+        "claude-opus-4-6":           (5.00, 25.00),
     }
     by_model = defaultdict(lambda: {"in": 0, "out": 0})
     by_stage = defaultdict(lambda: {"in": 0, "out": 0})
@@ -1085,7 +1089,8 @@ Return ONLY valid JSON:
 {{"subject": "...", "body": "..."}}"""
 
     msg = client.messages.create(
-        model="claude-haiku-4-5",
+        model="claude-haiku-5-5",
+        **sans_reflexion("claude-haiku-5-5"),
         max_tokens=400,
         messages=[{"role": "user", "content": prompt}],
     )
@@ -1262,7 +1267,8 @@ def _handle_tweet_regen(product_id: str, cq_id: str, chat_id: str) -> None:
             f"- Return only the tweet text, no quotes, no explanation."
         )
         msg = client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-haiku-5-5",
+            **sans_reflexion("claude-haiku-5-5"),
             max_tokens=300,
             messages=[{"role": "user", "content": prompt}],
         )

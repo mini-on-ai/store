@@ -7,9 +7,10 @@ load_dotenv(os.path.join(os.path.dirname(__file__), "..", ".env"), override=True
 
 from lib.f1_client import make_client
 from lib.utils import read_json, write_json, log
+from lib.utils import sans_reflexion
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-4-20250514")
+MODEL = os.getenv("CLAUDE_MODEL", "claude-sonnet-5-5")
 client = make_client()
 
 catalog = read_json("data/product-catalog.json")
@@ -27,6 +28,7 @@ for p in to_fix:
     try:
         msg = client.messages.create(
             model=MODEL,
+            **sans_reflexion(MODEL),
             max_tokens=1024,
             messages=[{"role": "user", "content": f"""Write a compelling Gumroad product page description for this digital product.
 

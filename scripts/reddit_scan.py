@@ -28,6 +28,7 @@ load_dotenv(Path(__file__).parent.parent / ".env", override=True)
 
 from lib.f1_client import make_client
 from lib.utils import read_json, write_json, timestamp, log, ROOT
+from lib.utils import sans_reflexion
 
 # Reddit public JSON API — no auth required, just a descriptive User-Agent
 REDDIT_SEARCH_BASE = "https://www.reddit.com/r/{subreddit}/search.json"
@@ -193,7 +194,8 @@ Score guide:
 
     try:
         response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-haiku-5-5",
+            **sans_reflexion("claude-haiku-5-5"),
             max_tokens=300,
             messages=[{"role": "user", "content": prompt}],
         )

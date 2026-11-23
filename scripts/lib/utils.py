@@ -82,10 +82,30 @@ def log(stage: str, message: str) -> None:
 # ── Token tracking ────────────────────────────────────────────────────────────
 
 _COST_PER_MTOK = {
+    "claude-sonnet-5-5":          {"input": 2.00, "output": 10.00},
+    "claude-opus-5-5":            {"input": 4.00, "output": 20.00},
+    "claude-haiku-5-5":           {"input": 0.10, "output": 0.50},   # prompts up to 100K tokens
+    # Older models, kept so past entries in data/token-usage.json still price correctly
     "claude-sonnet-4-6":          {"input": 3.00, "output": 15.00},
-    "claude-opus-4-6":            {"input": 15.00, "output": 75.00},
-    "claude-haiku-4-5-20251001":  {"input": 0.80,  "output": 4.00},
+    "claude-opus-4-6":            {"input": 5.00, "output": 25.00},
+    "claude-haiku-4-5-20251001":  {"input": 1.00, "output": 5.00},
+    "claude-haiku-4-5":           {"input": 1.00, "output": 5.00},
 }
+
+
+def sans_reflexion(model: str) -> dict:
+    """Extra request options that keep the old behaviour (no thinking) on the 5.5 models.
+
+    Claude Haiku 5.5 and Sonnet 5.5 think by default, and a thinking block then comes first in
+    response.content, where the scripts read content[0].text. Haiku 5.5 accepts thinking
+    disabled; Sonnet 5.5 rejects that (400) and turns thinking off with between_tools instead.
+    """
+    m = (model or "").lower()
+    if m.startswith("claude-haiku-5"):
+        return {"thinking": {"type": "disabled"}}
+    if m.startswith("claude-sonnet-5-5"):
+        return {"thinking": {"type": "between_tools"}}
+    return {}
 _TOKEN_LOG = "data/token-usage.json"
 
 

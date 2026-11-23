@@ -21,8 +21,9 @@ load_dotenv(Path(__file__).parent.parent / ".env", override=True)
 
 from lib.f1_client import make_client
 from lib.utils import read_json, log, log_token_usage, ROOT
+from lib.utils import sans_reflexion
 
-MODEL = "claude-haiku-4-20250514"
+MODEL = "claude-haiku-5-5"
 client = make_client()
 
 BLOG_POSTS_PATH = "data/blog-posts.json"
@@ -106,6 +107,7 @@ Return ONLY valid JSON — no markdown fences, no explanation — using this exa
 
     msg = client.messages.create(
         model=MODEL,
+        **sans_reflexion(MODEL),
         max_tokens=2048,
         messages=[{"role": "user", "content": prompt}],
     )

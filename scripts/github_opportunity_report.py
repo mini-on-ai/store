@@ -26,6 +26,7 @@ load_dotenv(ROOT / ".env", override=True)
 
 from lib.f1_client import make_client
 from lib.utils import read_json, write_json, log, timestamp, extract_json
+from lib.utils import sans_reflexion
 from telegram_notify import send_telegram
 from email_blast import _brevo, _text_to_html, SENDER_NAME, SENDER_EMAIL
 
@@ -141,6 +142,7 @@ Repos to analyze:
     log("github-scout", "Running Claude market analysis...")
     message = client.messages.create(
         model=CLAUDE_MODEL,
+        **sans_reflexion(CLAUDE_MODEL),
         max_tokens=8000,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": prompt}],

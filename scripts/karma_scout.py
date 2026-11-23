@@ -29,6 +29,7 @@ load_dotenv(Path(__file__).parent.parent / ".env", override=True)
 
 from lib.f1_client import make_client
 from lib.utils import read_json, write_json, timestamp, log, ROOT
+from lib.utils import sans_reflexion
 
 REDDIT_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 
@@ -122,7 +123,8 @@ Respond ONLY with valid JSON: {{"title": "...", "body": "..."}}"""
     client = make_client()
     try:
         response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-haiku-5-5",
+            **sans_reflexion("claude-haiku-5-5"),
             max_tokens=600,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -210,7 +212,8 @@ Respond ONLY with valid JSON: {{"title": "...", "body": "...", "change_summary":
     client = make_client()
     try:
         response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-haiku-5-5",
+            **sans_reflexion("claude-haiku-5-5"),
             max_tokens=700,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -340,7 +343,8 @@ Respond ONLY with valid JSON (no markdown):
 
     try:
         response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-haiku-5-5",
+            **sans_reflexion("claude-haiku-5-5"),
             max_tokens=300,
             messages=[{"role": "user", "content": prompt}],
         )

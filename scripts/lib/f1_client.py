@@ -28,6 +28,8 @@ import os
 import sys
 from typing import List, Optional, Tuple
 
+from lib.utils import sans_reflexion
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Build client
 # ─────────────────────────────────────────────────────────────────────────────
@@ -46,11 +48,15 @@ def make_client():
 
     f1_key = os.getenv("F1_API_KEY")
     proxy_url = os.getenv("F1_PROXY_URL", _F1_PROXY_URL_DEFAULT)
+    # The SDK adds /v1/messages itself, so a base URL ending in /v1 would call /v1/v1/messages (404).
+    proxy_url = proxy_url.rstrip("/").removesuffix("/v1")
 
     if f1_key:
+        # F1 reads the key from "Authorization: Bearer"; api_key would send it as x-api-key,
+        # which F1 rejects with a 401. auth_token sends the Bearer header.
         return anthropic.Anthropic(
             base_url=proxy_url,
-            api_key=f1_key,
+            auth_token=f1_key,
         )
 
     # Fallback: direct Anthropic API. Warn so it's visible during migration.
@@ -70,13 +76,13 @@ def make_client():
 
 # Map legacy model aliases to current Anthropic model IDs
 _MODEL_ALIASES = {
-    "haiku": "claude-haiku-4-5-20251001",
-    "sonnet": "claude-sonnet-4-20250514",
-    "opus": "claude-opus-4-20250514",
+    "haiku": "claude-haiku-5-5",
+    "sonnet": "claude-sonnet-5-5",
+    "opus": "claude-opus-5-5",
     # Passthrough: if it's already a full model ID, use as-is
 }
 
-_DEFAULT_MODEL = "claude-sonnet-4-20250514"
+_DEFAULT_MODEL = "claude-sonnet-5-5"
 
 
 def claude_call(
@@ -126,6 +132,7 @@ def claude_call(
         model=model_id,
         max_tokens=8096,
         messages=messages,
+        **sans_reflexion(model_id),
     )
     if system:
         kwargs["system"] = system
@@ -136,7 +143,8 @@ def claude_call(
     except Exception as e:
         raise RuntimeError(f"f1_client.claude_call() failed: {e}") from e
 
-    text = response.content[0].text if response.content else ""
+    # Opus 5.5 always thinks, so its reply can start with a thinking block: keep only the text.
+    text = "".join(b.text for b in response.content if getattr(b, "type", "") == "text")
     usage = {
         "input_tokens": response.usage.input_tokens,
         "output_tokens": response.usage.output_tokens,
